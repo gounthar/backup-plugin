@@ -11,7 +11,7 @@
     <artifactId>backup</artifactId>
     <packaging>hpi</packaging>
     <name>Backup plugin</name>
-    <url>http://wiki.jenkins-ci.org/display/JENKINS/Backup+Plugin</url>
+    <url>https://wiki.jenkins-ci.org/display/JENKINS/Backup+Plugin</url>
     <description>Backups and restores Hudson/Jenkins files</description>
     <version>1.6.2-SNAPSHOT</version>
 
@@ -80,7 +80,7 @@
     <distributionManagement>
         <repository>
             <id>java.net-m2-repository</id>
-            <url>http://maven.jenkins-ci.org/content/repositories/releases/</url>
+            <url>https://repo.jenkins-ci.org/releases/</url>
         </repository>
     </distributionManagement>
 
@@ -88,6 +88,26 @@
       <repository>
         <id>custom</id>
         <url>file:///${basedir}/src/repository</url>
+      </repository>
+      <repository>
+        <id>m.g.o-public</id>
+        <url>https://maven.glassfish.org/content/groups/public/</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </repository>
+      <repository>
+        <id>java.net2</id>
+        <url>https://maven.java.net/content/repositories/public/</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
       </repository>
     </repositories>
 
