@@ -66,6 +66,19 @@
                     <goals>deploy</goals>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.jvnet.hudson.tools</groupId>
+                <artifactId>maven-hpi-plugin</artifactId>
+                <configuration>
+                    <disabledTests>true</disabledTests>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-apt-compile</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
   
