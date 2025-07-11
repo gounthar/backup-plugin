@@ -44,8 +44,12 @@ public class BackupPluginImpl extends Plugin {
 
     private static BackupPluginImpl instance;
 
-    public BackupPluginImpl() {
-        instance = this;
+    static {
+        instance = new BackupPluginImpl();
+    }
+
+    private BackupPluginImpl() {
+        // Constructor logic if needed
     }
 
     public static BackupPluginImpl getInstance() {

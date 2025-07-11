@@ -59,7 +59,7 @@ public class BackupTask extends BackupPluginTask {
 	public final static String FINGERPRINTS_NAME = "fingerprints";
 	public final static String BUILDS_NAME = "builds";
 	public final static String ARCHIVE_NAME = "archive";
-	public final static String[] DEFAULT_EXCLUSIONS = { "backup.log" };
+	static final String[] DEFAULT_EXCLUSIONS = { "backup.log" };
 
     /**
      * delay between two verification of no running processes
