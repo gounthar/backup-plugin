@@ -24,8 +24,11 @@
 
 package org.jvnet.hudson.plugins.backup.utils;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 /**
  * This class is used to change the verbosity of the backup plugin. 
@@ -40,7 +43,7 @@ public class BackupLogger {
 	private boolean debug;
 
 	public BackupLogger(String logFileName, boolean debug) throws IOException {
-		logFile = new PrintWriter(logFileName);
+		logFile = new PrintWriter(new OutputStreamWriter(new FileOutputStream(logFileName), StandardCharsets.UTF_8));
 		this.debug = debug;
 	}
 	

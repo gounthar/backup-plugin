@@ -1,17 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.jvnet.hudson.plugins</groupId>
+        <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.375</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>4.51</version>
+        <relativePath/>
     </parent>
 
-    <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>backup</artifactId>
     <packaging>hpi</packaging>
     <name>Backup plugin</name>
-    <url>http://wiki.jenkins-ci.org/display/JENKINS/Backup+Plugin</url>
+    <url>https://wiki.jenkins-ci.org/display/JENKINS/Backup+Plugin</url>
     <description>Backups and restores Hudson/Jenkins files</description>
     <version>1.6.2-SNAPSHOT</version>
 
@@ -28,17 +28,11 @@
         </developer>
     </developers>
 
+    <properties>
+        <jenkins.version>2.426.3</jenkins.version>
+    </properties>
+
     <dependencies>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>1.4</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.4</version>
-        </dependency>
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-archiver</artifactId>
@@ -56,7 +50,28 @@
             <version>3.0.24</version>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.15.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.16.1</version>
+            </dependency>
 
+            <dependency>
+                <groupId>io.jenkins.tools.bom</groupId>
+                <artifactId>bom-2.440.x</artifactId>
+                <version>3435.v238d66a_043fb_</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <!-- see https://wiki.jenkins-ci.org/display/JENKINS/Hosting+Plugins#HostingPlugins-PreparePOMforrelease -->
     <build>
         <plugins>
@@ -66,29 +81,62 @@
                     <goals>deploy</goals>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jvnet.hudson.tools</groupId>
+                <artifactId>maven-hpi-plugin</artifactId>
+                <configuration>
+                    <disabledTests>true</disabledTests>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-apt-compile</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <argLine>--add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens
+                        java.base/java.util=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens
+                        java.desktop/java.awt.font=ALL-UNNAMED
+                    </argLine>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-  
+
     <!-- see http://groups.google.com/group/hudson-dev/browse_thread/thread/83e34c639eec470a for the rationale behind this -->
     <scm>
         <connection>scm:svn:https://guest@svn.jenkins-ci.org/trunk/hudson/plugins/backup/</connection>
         <developerConnection>scm:svn:https://svn.jenkins-ci.org/trunk/hudson/plugins/backup/</developerConnection>
         <url>https://hudson.dev.java.net/source/browse/hudson/trunk/hudson/plugins/backup</url>
     </scm>
-  
+
     <!-- see https://wiki.jenkins-ci.org/display/JENKINS/Hosting+Plugins#HostingPlugins-PreparePOMforrelease -->
     <distributionManagement>
         <repository>
             <id>java.net-m2-repository</id>
-            <url>http://maven.jenkins-ci.org/content/repositories/releases/</url>
+            <url>https://repo.jenkins-ci.org/releases/</url>
         </repository>
     </distributionManagement>
 
     <repositories>
-      <repository>
-        <id>custom</id>
-        <url>file:///${basedir}/src/repository</url>
-      </repository>
+        <repository>
+            <id>custom</id>
+            <url>file:///${basedir}/src/repository</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>

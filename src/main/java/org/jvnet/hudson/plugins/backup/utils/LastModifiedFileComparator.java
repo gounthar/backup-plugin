@@ -25,6 +25,7 @@
 package org.jvnet.hudson.plugins.backup.utils;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -32,13 +33,10 @@ import java.util.Comparator;
  * The most recent is prior.
  * 
  */
-public class LastModifiedFileComparator implements Comparator {
+public class LastModifiedFileComparator implements Comparator, Serializable {
     public int compare(Object o1, Object o2) {
-        if (! (o1 instanceof File && o2 instanceof File)) {
+        if (!(o1 instanceof File && o2 instanceof File)) {
             throw new IllegalArgumentException("Parameters not File types");
-        }
-        if (o1 == null || o2 == null) {
-            throw new IllegalArgumentException("One parameter is null");
         }
         return (int) (((File) o2).lastModified() - ((File) o1).lastModified());
     }
