@@ -74,7 +74,11 @@ public class TarBz2UnArchiverTest {
 
 	@After
 	public void tearDown() throws Exception {
-		archiveFile.delete();
-		FileUtils.deleteDirectory(targetDirectory);
+		if (archiveFile != null && archiveFile.exists()) {
+			archiveFile.delete();
+		}
+		if (targetDirectory != null && targetDirectory.exists()) {
+			FileUtils.deleteDirectory(targetDirectory);
+		}
 	}
 }
