@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
@@ -117,7 +117,7 @@
         </plugins>
     </build>
 
-    <!-- see http://groups.google.com/group/hudson-dev/browse_thread/thread/83e34c639eec470a for the rationale behind this -->
+    <!-- see https://groups.google.com/group/hudson-dev/browse_thread/thread/83e34c639eec470a for the rationale behind this -->
     <scm>
         <connection>scm:svn:https://guest@svn.jenkins-ci.org/trunk/hudson/plugins/backup/</connection>
         <developerConnection>scm:svn:https://svn.jenkins-ci.org/trunk/hudson/plugins/backup/</developerConnection>
