@@ -48,7 +48,7 @@ public class BackupPluginImpl extends Plugin {
         instance = new BackupPluginImpl();
     }
 
-    private BackupPluginImpl() {
+    public BackupPluginImpl() {
         // Constructor logic if needed
     }
 
