@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright (c) 2009-2010, Vincent Sellier, Manufacture Française des Pneumatiques Michelin, Romain Seguy
+ * Copyright (c) 2009-2010, Vincent Sellier, Manufacture Francaise des Pneumatiques Michelin, Romain Seguy
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,7 +59,7 @@ public class BackupTask extends BackupPluginTask {
 	public final static String FINGERPRINTS_NAME = "fingerprints";
 	public final static String BUILDS_NAME = "builds";
 	public final static String ARCHIVE_NAME = "archive";
-	public final static String[] DEFAULT_EXCLUSIONS = { "backup.log" };
+	static final String[] DEFAULT_EXCLUSIONS = { "backup.log" };
 
     /**
      * delay between two verification of no running processes
