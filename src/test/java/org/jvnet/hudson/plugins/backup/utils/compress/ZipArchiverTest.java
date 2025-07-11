@@ -59,11 +59,29 @@ public class ZipArchiverTest {
 	}
 
 	private void printDirectoryDiff(File expected, File actual) {
+		if (expected == null || !expected.exists() || !expected.isDirectory()) {
+			System.err.println("Reference directory missing or not a directory: " + (expected != null ? expected.getAbsolutePath() : "null"));
+			return;
+		}
+		if (actual == null || !actual.exists() || !actual.isDirectory()) {
+			System.err.println("Extracted directory missing or not a directory: " + (actual != null ? actual.getAbsolutePath() : "null"));
+			return;
+		}
+		File[] expectedList = expected.listFiles();
+		File[] actualList = actual.listFiles();
+		if (expectedList == null) {
+			System.err.println("Reference directory cannot be listed: " + expected.getAbsolutePath());
+			return;
+		}
+		if (actualList == null) {
+			System.err.println("Extracted directory cannot be listed: " + actual.getAbsolutePath());
+			return;
+		}
 		Set<String> expectedFiles = new HashSet<>();
 		Set<String> actualFiles = new HashSet<>();
-		for (File f : expected.listFiles())
+		for (File f : expectedList)
 			expectedFiles.add(f.getName());
-		for (File f : actual.listFiles())
+		for (File f : actualList)
 			actualFiles.add(f.getName());
 		for (String name : expectedFiles) {
 			if (!actualFiles.contains(name)) {
@@ -75,7 +93,7 @@ public class ZipArchiverTest {
 				System.err.println("Extra in extracted: " + name);
 			}
 		}
-		for (File f : expected.listFiles()) {
+		for (File f : expectedList) {
 			File af = new File(actual, f.getName());
 			if (af.exists() && f.isFile() && af.isFile()) {
 				try {
