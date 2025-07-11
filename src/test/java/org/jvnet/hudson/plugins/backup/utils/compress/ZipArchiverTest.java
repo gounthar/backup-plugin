@@ -71,16 +71,25 @@ public class ZipArchiverTest {
 				"Logger"));
 		unarchiver.extract();
 
-		Assert.assertTrue(ArchiverTestUtil.compareDirectoryContent(new File(Thread
+		boolean result = ArchiverTestUtil.compareDirectoryContent(new File(Thread
 				.currentThread().getContextClassLoader().getResource("data")
-				.getFile()), targetDirectory));
-
+				.getFile()), targetDirectory);
+		if (!result) {
+			System.err.println("Directory content mismatch after ZIP extraction.");
+			System.err.println("Reference: " + new File(Thread.currentThread().getContextClassLoader().getResource("data").getFile()).getAbsolutePath());
+			System.err.println("Extracted: " + targetDirectory.getAbsolutePath());
+		}
+		Assert.assertTrue(result);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		archiveFile.delete();
-		FileUtils.deleteDirectory(targetDirectory);
+		if (archiveFile != null && archiveFile.exists()) {
+			archiveFile.delete();
+		}
+		if (targetDirectory != null && targetDirectory.exists()) {
+			FileUtils.deleteDirectory(targetDirectory);
+		}
 	}
 
 }
