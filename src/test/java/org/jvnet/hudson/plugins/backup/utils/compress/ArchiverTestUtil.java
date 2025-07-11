@@ -26,6 +26,7 @@ package org.jvnet.hudson.plugins.backup.utils.compress;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
 
@@ -60,12 +61,16 @@ public class ArchiverTestUtil {
 			return false;
 		}
 
-		File list1[] = directory1.listFiles();
-		File list2[] = directory2.listFiles();
+		File[] list1 = directory1.listFiles();
+		File[] list2 = directory2.listFiles();
 
 		if (list1.length != list2.length) {
 			return false;
 		}
+
+		// Sort files by name for cross-platform consistency
+		Arrays.sort(list1, (f1, f2) -> f1.getName().compareTo(f2.getName()));
+		Arrays.sort(list2, (f1, f2) -> f1.getName().compareTo(f2.getName()));
 
 		for (int i = 0; i < list1.length; i++) {
 			File file1 = list1[i];
@@ -76,9 +81,13 @@ public class ArchiverTestUtil {
 			}
 
 			if (file1.isDirectory()) {
-				return compareDirectoryContent(file1, file2);
+				if (!compareDirectoryContent(file1, file2)) {
+					return false;
+				}
 			} else {
-				return FileUtils.contentEquals(file1, file2);
+				if (!FileUtils.contentEquals(file1, file2)) {
+					return false;
+				}
 			}
 		}
 		return true;
